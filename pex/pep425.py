@@ -208,8 +208,9 @@ class PEP425(object):  # noqa
 
     # interpreter specific
     for p in platforms:
-      for abi in abis:
-        yield ('%s%s' % (impl, version), abi, p)
+      for minor_version in (minor_versions if impl == "cp" else [version]):
+        for abi in abis:
+          yield ('%s%s' % (impl, minor_version), abi, p)
 
     # everything else
     for p in platforms + ['any']:
