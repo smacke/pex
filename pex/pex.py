@@ -120,7 +120,8 @@ class PEX(object):  # noqa: T000
   @classmethod
   def _tainted_path(cls, path, site_libs):
     paths = frozenset([path, os.path.realpath(path)])
-    return any(path.startswith(site_lib) for site_lib in site_libs for path in paths)
+    return not path.endswith("_vendor") and any(
+        path.startswith(site_lib) for site_lib in site_libs for path in paths)
 
   @classmethod
   def minimum_sys_modules(cls, site_libs, modules=None):
